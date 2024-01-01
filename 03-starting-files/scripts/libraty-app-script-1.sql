@@ -37,12 +37,14 @@ CREATE TABLE `review` (
 `rating` decimal(3,2) default null,
 `book_id` bigint(20) default null,
 `review_description` text default null,
-primary key(`id`)
+primary key(`id`),
+key  `FK_book_id_idx` (`book_id`),
+constraint `FK_book` foreign key(`book_id`) references `book` (`id`) on update no action on delete no action
 )engine=InnoDB auto_increment=1 default charset=latin1;
 
 INSERT INTO `review` VALUES 
-(1,'user1@email.com',now(),4,1, 'First book is pretty good book overall'),
-(2,'user2@email.com',now(),4.2,2, 'Second books is pretty good book overall');
+(1,'user1@email.com',now(),4,1, 'First book is pretty good book overall');
+
 
 
 DROP TABLE IF EXISTS `checkout`;
@@ -53,7 +55,9 @@ CREATE TABLE `checkout`(
 `checkout_date` varchar(45) default null,
 `return_date` varchar(45) default null,
 `book_id` bigint(20),
-primary key (`id`)
+primary key (`id`),
+key  `FK_book_id_01` (`book_id`),
+constraint `FK_book_01` foreign key(`book_id`) references `book` (`id`) on update no action on delete no action
 )engine=InnoDB auto_increment=1 default charset=latin1;
 
 
@@ -93,6 +97,7 @@ CREATE TABLE `history`(
 `author` varchar(45) default null,
 `description` text default null,
 `img` mediumblob default null,
+`book_id` bigint(20),
 primary key (`id`)
 )engine = InnoDB auto_increment=1 default charset=latin1;
 
